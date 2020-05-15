@@ -75,7 +75,7 @@ router.patch('/users/me', auth, async(req,res) => {
 
     }
     catch(e) {
-        res.status(400).send()
+        res.status(401).send()
     }
 })
 
@@ -83,7 +83,7 @@ router.post('/users/login', async (req, res) => {
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password)
         const token = await user.generateAuthToken()
-        res.send({ user, token })
+        res.status(200).send({ user, token })
     } catch (e) {
         console.log(e)
         res.status(400).send()
